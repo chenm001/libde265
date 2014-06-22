@@ -78,11 +78,11 @@ endif(DE265_LOG_TRACE)
 
 include_directories(../ ../libde265)
 
-file(GLOB LIBSRC ../libde265/*.c ../extra/*.c)
+file(GLOB LIBSRC ../libde265/*.cc ../extra/*.c)
 file(GLOB LIBINC ../libde265/*.h ../extra/*.h)
 file(GLOB APPSRC dec265.cc)
-file(GLOB ASMSRC0 ../libde265/x86/sse.c ../libde265/x86/sse-dct.c)
-file(GLOB ASMSRC1 ../libde265/x86/sse-motion.c)
+file(GLOB ASMSRC0 ../libde265/x86/sse.cc ../libde265/x86/sse-dct.cc)
+file(GLOB ASMSRC1 ../libde265/x86/sse-motion.cc)
 file(GLOB ASMINC ../libde265/x86/*.h)
 
 source_group(INC  FILES ${LIBINC})
@@ -116,6 +116,9 @@ if(MSVC)
     add_definitions(/wd4189) # local variable is initialized but not referenced
     add_definitions(/wd4715) # not all control paths return a value
     add_definitions(/wd4324) # structure was padded due to __declspec(align())
+    add_definitions(/wd4099) #type name first seen using 'struct' now seen using 'class'
+
+    add_definitions(/DNOMINMAX) # std::min, std::max
 
     set_source_files_properties(${LIBSRC} PROPERTIES LANGUAGE CXX)
 endif(MSVC)

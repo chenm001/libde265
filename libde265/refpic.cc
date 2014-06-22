@@ -269,6 +269,7 @@ bool write_short_term_ref_pic_set(error_queue* errqueue,
                                   bool sliceRefPicSet) // is this in the slice header?
 {
   assert(0); // TODO
+  return false;
 }
 
 void dump_short_term_ref_pic_set(const ref_pic_set* set, FILE* fh)
