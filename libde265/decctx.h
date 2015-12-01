@@ -383,13 +383,13 @@ class decoder_context : public base_context {
  private:
   // --- internal data ---
 
-  std::shared_ptr<video_parameter_set>  vps[ DE265_MAX_VPS_SETS ];
-  std::shared_ptr<seq_parameter_set>    sps[ DE265_MAX_SPS_SETS ];
-  std::shared_ptr<pic_parameter_set>    pps[ DE265_MAX_PPS_SETS ];
+  std::tr1::shared_ptr<video_parameter_set>  vps[ DE265_MAX_VPS_SETS ];
+  std::tr1::shared_ptr<seq_parameter_set>    sps[ DE265_MAX_SPS_SETS ];
+  std::tr1::shared_ptr<pic_parameter_set>    pps[ DE265_MAX_PPS_SETS ];
 
-  std::shared_ptr<video_parameter_set>  current_vps;
-  std::shared_ptr<seq_parameter_set>    current_sps;
-  std::shared_ptr<pic_parameter_set>    current_pps;
+  std::tr1::shared_ptr<video_parameter_set>  current_vps;
+  std::tr1::shared_ptr<seq_parameter_set>    current_sps;
+  std::tr1::shared_ptr<pic_parameter_set>    current_pps;
 
  public:
   thread_pool thread_pool_;

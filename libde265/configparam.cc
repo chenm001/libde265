@@ -111,7 +111,7 @@ bool option_int::is_valid(int v) const
   if (have_high_limit && v>high_limit) { return false; }
 
   if (!valid_values_set.empty()) {
-    auto iter = std::find(valid_values_set.begin(), valid_values_set.end(), v);
+    std::vector<int>::const_iterator iter = std::find(valid_values_set.begin(), valid_values_set.end(), v);
     if (iter==valid_values_set.end()) { return false; }
   }
 

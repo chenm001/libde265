@@ -95,8 +95,8 @@ void CodingOptions<node>::start(enum RateEstimationMethod rateMethod)
     /* If we modify the context models in this algorithm,
        we need separate models for each option.
     */
-    for (auto& option : mOptions) {
-      option.context.decouple();
+    for (int i = 0; i < mOptions.size(); i++) {
+      mOptions[i].context.decouple();
     }
 
     cabac = &cabac_adaptive;

@@ -134,7 +134,7 @@ void enc_tb::reconstruct_tb(encoder_context* ectx,
 
   if (!reconstruction[cIdx]) {
 
-    reconstruction[cIdx] = std::make_shared<small_image_buffer>(log2TbSize, sizeof(uint8_t));
+    reconstruction[cIdx] = std::tr1::shared_ptr<small_image_buffer>(new small_image_buffer(log2TbSize, sizeof(uint8_t)));
 
     if (cb->PredMode == MODE_SKIP) {
       PixelAccessor dstPixels(*reconstruction[cIdx], xC,yC);

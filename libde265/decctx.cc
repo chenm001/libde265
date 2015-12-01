@@ -231,9 +231,9 @@ decoder_context::decoder_context()
   memset(&slice,0,sizeof(slice_segment_header)*DE265_MAX_SLICES);
   */
 
-  current_vps = NULL;
-  current_sps = NULL;
-  current_pps = NULL;
+  current_vps = std::tr1::shared_ptr<video_parameter_set>();
+  current_sps = std::tr1::shared_ptr<seq_parameter_set>();
+  current_pps = std::tr1::shared_ptr<pic_parameter_set>();
 
   //memset(&thread_pool,0,sizeof(struct thread_pool));
   num_worker_threads = 0;
@@ -527,7 +527,7 @@ de265_error decoder_context::read_vps_NAL(bitreader& reader)
 {
   logdebug(LogHeaders,"---> read VPS\n");
 
-  std::shared_ptr<video_parameter_set> new_vps = std::make_shared<video_parameter_set>();
+  std::tr1::shared_ptr<video_parameter_set> new_vps = std::tr1::shared_ptr<video_parameter_set>(new video_parameter_set());
   de265_error err = new_vps->read(this,&reader);
   if (err != DE265_OK) {
     return err;
@@ -546,7 +546,7 @@ de265_error decoder_context::read_sps_NAL(bitreader& reader)
 {
   logdebug(LogHeaders,"----> read SPS\n");
 
-  std::shared_ptr<seq_parameter_set> new_sps = std::make_shared<seq_parameter_set>();
+  std::tr1::shared_ptr<seq_parameter_set> new_sps = std::tr1::shared_ptr<seq_parameter_set>(new seq_parameter_set());
   de265_error err;
 
   if ((err=new_sps->read(this, &reader)) != DE265_OK) {
@@ -566,7 +566,7 @@ de265_error decoder_context::read_pps_NAL(bitreader& reader)
 {
   logdebug(LogHeaders,"----> read PPS\n");
 
-  std::shared_ptr<pic_parameter_set> new_pps = std::make_shared<pic_parameter_set>();
+  std::tr1::shared_ptr<pic_parameter_set> new_pps = std::tr1::shared_ptr<pic_parameter_set>(new pic_parameter_set());
 
   bool success = new_pps->read(&reader,this);
 
@@ -1410,7 +1410,7 @@ int decoder_context::generate_unavailable_reference_picture(const seq_parameter_
 {
   assert(dpb.has_free_dpb_picture(true));
 
-  std::shared_ptr<const seq_parameter_set> current_sps = this->sps[ (int)current_pps->seq_parameter_set_id ];
+  std::tr1::shared_ptr<const seq_parameter_set> current_sps = this->sps[ (int)current_pps->seq_parameter_set_id ];
 
   int idx = dpb.new_image(current_sps, this, 0,0, false);
   assert(idx>=0);

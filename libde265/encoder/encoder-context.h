@@ -90,14 +90,14 @@ class encoder_context : public base_context
   seq_parameter_set& get_sps() { return *sps; }
   pic_parameter_set& get_pps() { return *pps; }
 
-  std::shared_ptr<video_parameter_set>& get_shared_vps() { return vps; }
-  std::shared_ptr<seq_parameter_set>& get_shared_sps() { return sps; }
-  std::shared_ptr<pic_parameter_set>& get_shared_pps() { return pps; }
+  std::tr1::shared_ptr<video_parameter_set>& get_shared_vps() { return vps; }
+  std::tr1::shared_ptr<seq_parameter_set>& get_shared_sps() { return sps; }
+  std::tr1::shared_ptr<pic_parameter_set>& get_shared_pps() { return pps; }
 
  private:
-  std::shared_ptr<video_parameter_set>  vps;
-  std::shared_ptr<seq_parameter_set>    sps;
-  std::shared_ptr<pic_parameter_set>    pps;
+  std::tr1::shared_ptr<video_parameter_set>  vps;
+  std::tr1::shared_ptr<seq_parameter_set>    sps;
+  std::tr1::shared_ptr<pic_parameter_set>    pps;
   //slice_segment_header shdr;
 
  public:
@@ -105,7 +105,7 @@ class encoder_context : public base_context
   bool headers_have_been_sent;
 
   encoder_picture_buffer picbuf;
-  std::shared_ptr<sop_creator> sop;
+  std::tr1::shared_ptr<sop_creator> sop;
 
   std::deque<en265_packet*> output_packets;
 
@@ -124,7 +124,7 @@ class encoder_context : public base_context
   CABAC_encoder_bitstream cabac_encoder;
   context_model_table     cabac_ctx_models;
 
-  //std::shared_ptr<CABAC_encoder> cabac_estim;
+  //std::tr1::shared_ptr<CABAC_encoder> cabac_estim;
 
   bool use_adaptive_context;
 

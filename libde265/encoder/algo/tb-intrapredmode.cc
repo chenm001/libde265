@@ -311,7 +311,7 @@ Algo_TB_IntraPredMode_MinResidual::analyze(encoder_context* ectx,
       intraMode = getPredMode(0);
     }
     else {
-      tb->intra_prediction[0] = std::make_shared<small_image_buffer>(log2TbSize, sizeof(uint8_t));
+      tb->intra_prediction[0] = std::tr1::shared_ptr<small_image_buffer>(new small_image_buffer(log2TbSize, sizeof(uint8_t)));
 
       for (int idx=0;idx<nPredModesEnabled();idx++) {
         enum IntraPredMode mode = getPredMode(idx);
@@ -427,7 +427,7 @@ Algo_TB_IntraPredMode_FastBrute::analyze(encoder_context* ectx,
     std::vector< std::pair<enum IntraPredMode,float> > distortions;
 
     int log2TbSize = tb->log2Size;
-    tb->intra_prediction[0] = std::make_shared<small_image_buffer>(log2TbSize, sizeof(uint8_t));
+    tb->intra_prediction[0] = std::tr1::shared_ptr<small_image_buffer>(new small_image_buffer(log2TbSize, sizeof(uint8_t)));
 
     for (int idx=0;idx<35;idx++)
       if (idx!=candidates[0] && idx!=candidates[1] && idx!=candidates[2] &&

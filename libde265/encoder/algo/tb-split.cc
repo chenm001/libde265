@@ -107,13 +107,13 @@ void compute_residual_channel(encoder_context* ectx, enc_tb* tb, const de265_ima
 
   // decode intra prediction
 
-  tb->intra_prediction[cIdx] = std::make_shared<small_image_buffer>(log2Size, sizeof(pixel_t));
+  tb->intra_prediction[cIdx] = std::tr1::shared_ptr<small_image_buffer>(new small_image_buffer(log2Size, sizeof(pixel_t)));
 
   decode_intra_prediction_from_tree(ectx->img, tb, ectx->ctbs, ectx->get_sps(), cIdx);
 
   // create residual buffer and compute differences
 
-  tb->residual[cIdx] = std::make_shared<small_image_buffer>(log2Size, sizeof(int16_t));
+  tb->residual[cIdx] = std::tr1::shared_ptr<small_image_buffer>(new small_image_buffer(log2Size, sizeof(int16_t)));
 
   diff_blk<pixel_t>(tb->residual[cIdx]->get_buffer_s16(), blkSize,
                     input->get_image_plane_at_pos(cIdx,x,y),

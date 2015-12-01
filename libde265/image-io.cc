@@ -66,7 +66,7 @@ de265_image* ImageSource_YUV::read_next_image()
   if (mReachedEndOfFile) return NULL;
 
   de265_image* img = new de265_image;
-  img->alloc_image(width,height,de265_chroma_420, NULL, false,
+  img->alloc_image(width,height,de265_chroma_420, std::tr1::shared_ptr<const seq_parameter_set>(), false,
                    NULL, NULL, 0, NULL, false);
   assert(img); // TODO: error handling
 

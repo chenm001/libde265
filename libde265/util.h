@@ -61,6 +61,12 @@
 #define ALIGNED_8( var )  LIBDE265_DECLARE_ALIGNED( var, 8 )
 #define ALIGNED_4( var )  LIBDE265_DECLARE_ALIGNED( var, 4 )
 
+#if _MSC_VER < 1600 // VS2008
+#define NEED_NULLPTR_FALLBACK
+#define NEED_STD_MOVE_FALLBACK
+#include <type_traits>
+#endif
+
 // C++11 specific features
 #if defined(_MSC_VER) || (!__clang__ && __GNUC__ && GCC_VERSION < 40600)
 #define FOR_LOOP(type, var, list)   for each (type var in list)
@@ -81,8 +87,8 @@ namespace std { using namespace std::tr1; }
 namespace std {
 
 template<typename _Tp>
-inline typename std::remove_reference<_Tp>::type&& move(_Tp&& __t) {
-  return static_cast<typename std::remove_reference<_Tp>::type&&>(__t);
+inline typename std::tr1::remove_reference<_Tp>::type& move(_Tp& __t) {
+  return static_cast<typename std::tr1::remove_reference<_Tp>::type&>(__t);
 }
 
 }  // namespace std

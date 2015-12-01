@@ -230,7 +230,7 @@ de265_image::de265_image()
 
 
 de265_error de265_image::alloc_image(int w,int h, enum de265_chroma c,
-                                     std::shared_ptr<const seq_parameter_set> sps, bool allocMetadata,
+                                     std::tr1::shared_ptr<const seq_parameter_set> sps, bool allocMetadata,
                                      decoder_context* dctx,
                                      encoder_context* ectx,
                                      de265_PTS pts, void* user_data,

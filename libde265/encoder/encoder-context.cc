@@ -30,9 +30,9 @@ encoder_context::encoder_context()
 {
   encoder_started=false;
 
-  vps = std::make_shared<video_parameter_set>();
-  sps = std::make_shared<seq_parameter_set>();
-  pps = std::make_shared<pic_parameter_set>();
+  vps = std::tr1::shared_ptr<video_parameter_set>(new video_parameter_set());
+  sps = std::tr1::shared_ptr<seq_parameter_set>(new seq_parameter_set());
+  pps = std::tr1::shared_ptr<pic_parameter_set>(new pic_parameter_set());
 
   //img_source = NULL;
   //reconstruction_sink = NULL;
@@ -74,10 +74,10 @@ void encoder_context::start_encoder()
 
 
   if (params.sop_structure() == SOP_Intra) {
-    sop = std::shared_ptr<sop_creator_intra_only>(new sop_creator_intra_only());
+    sop = std::tr1::shared_ptr<sop_creator_intra_only>(new sop_creator_intra_only());
   }
   else {
-    auto s = std::shared_ptr<sop_creator_trivial_low_delay>(new sop_creator_trivial_low_delay());
+    std::tr1::shared_ptr<sop_creator_trivial_low_delay> s = std::tr1::shared_ptr<sop_creator_trivial_low_delay>(new sop_creator_trivial_low_delay());
     s->setParams(params.mSOP_LowDelay);
     sop = s;
   }

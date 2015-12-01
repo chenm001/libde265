@@ -224,7 +224,7 @@ struct de265_image {
 
 
   de265_error alloc_image(int w,int h, enum de265_chroma c,
-                          std::shared_ptr<const seq_parameter_set> sps,
+                          std::tr1::shared_ptr<const seq_parameter_set> sps,
                           bool allocMetadata,
                           decoder_context* dctx,
                           class encoder_context* ectx,
@@ -237,9 +237,9 @@ struct de265_image {
 
   void release();
 
-  void set_headers(std::shared_ptr<video_parameter_set> _vps,
-                   std::shared_ptr<seq_parameter_set>   _sps,
-                   std::shared_ptr<pic_parameter_set>   _pps) {
+  void set_headers(std::tr1::shared_ptr<video_parameter_set> _vps,
+                   std::tr1::shared_ptr<seq_parameter_set>   _sps,
+                   std::tr1::shared_ptr<pic_parameter_set>   _pps) {
     vps = _vps;
     sps = _sps;
     pps = _pps;
@@ -390,10 +390,10 @@ public:
   bool has_sps() const { return (bool)sps; }
   bool has_pps() const { return (bool)pps; }
 
-  std::shared_ptr<const seq_parameter_set> get_shared_sps() { return sps; }
+  std::tr1::shared_ptr<const seq_parameter_set> get_shared_sps() { return sps; }
 
-  //std::shared_ptr<const seq_parameter_set> get_shared_sps() const { return sps; }
-  //std::shared_ptr<const pic_parameter_set> get_shared_pps() const { return pps; }
+  //std::tr1::shared_ptr<const seq_parameter_set> get_shared_sps() const { return sps; }
+  //std::tr1::shared_ptr<const pic_parameter_set> get_shared_pps() const { return pps; }
 
   decoder_context*    decctx;
   class encoder_context*    encctx;
@@ -404,9 +404,9 @@ private:
   // The image also keeps a reference to VPS/SPS/PPS, because when decoding is delayed,
   // the currently active parameter sets in the decctx might already have been replaced
   // with new parameters.
-  std::shared_ptr<const video_parameter_set> vps;
-  std::shared_ptr<const seq_parameter_set>   sps;  // the SPS used for decoding this image
-  std::shared_ptr<const pic_parameter_set>   pps;  // the PPS used for decoding this image
+  std::tr1::shared_ptr<const video_parameter_set> vps;
+  std::tr1::shared_ptr<const seq_parameter_set>   sps;  // the SPS used for decoding this image
+  std::tr1::shared_ptr<const pic_parameter_set>   pps;  // the PPS used for decoding this image
 
   MetaDataArray<CTB_info>    ctb_info;
   MetaDataArray<CB_ref_info> cb_info;
